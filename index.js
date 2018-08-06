@@ -7,7 +7,7 @@ const start = (async () => {
   for(let i = 0; i < accounts.length; i++) {
     let quest = {
       account: accounts[i],
-      limit: '50'
+      limit: '5'
     }
     await app.main(quest);
   }
