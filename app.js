@@ -63,7 +63,6 @@ const self = module.exports = {
           let posts = document.querySelectorAll('div.v1Nh3 > a');          
           return [].map.call(posts, a => a.href)
         })
-        console.log(posts.length);
         if(posts.length == 0) break;
         const textPost = [];
         let p = [];
@@ -93,11 +92,11 @@ const self = module.exports = {
         break
       }
     }
-    spinner.succeed(chalk.yellow('Scroll Succeed'))
+    spinner.succeed(chalk.yellow('Scroll Succeed'))    
     return mediaText
   },
 
-  makeFolder: async (item, mode) => {
+  makeFolder: async (item) => {
     try {      
       let dir = './result/' + item
       if (!fs.existsSync(dir)) {
@@ -172,22 +171,6 @@ const self = module.exports = {
         throw (err)
       }      
     })
-
-    // await self.makeFolder(account, 'account')
-    // const arraySplit = await self.splitUp(urls, 10) // Bot 10
-    // const promises = []
-    // for (let i = 0; i < arraySplit.length; i++) {
-    //   promises.push(browser.newPage().then(async page => {
-    //     page.on('error', () => {
-    //       console.log(chalk.red('🚀 Page Reload'))
-    //       page.reload()
-    //     })
-    //     await self.save(page, account, arraySplit[i], i)
-    //     await page.close()
-    //   }))
-    // }
-    // await Promise.all(promises)
-    // console.log(chalk.green('✅ Succeed'))
 
     await browser.close()
   }
