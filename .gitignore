@@ -5,9 +5,7 @@ npm-debug.log*
 package-lock.json
 # Dependency directories
 node_modules
+result
 jspm_packages
-
 # Optional npm cache directory
 .npm
-
-result

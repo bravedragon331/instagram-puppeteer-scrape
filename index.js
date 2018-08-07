@@ -11,7 +11,7 @@ const start = (async () => {
       limit: '50'
     }
     // TO scrape url
-    await app.main(quest);
+    // await app.main(quest);
     // To save local
     await download.main(quest);
   }
