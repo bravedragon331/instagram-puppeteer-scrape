@@ -60,27 +60,35 @@ const self = module.exports = {
         // mediaText = await self.findDuplicateInArray(mediaText)
         
         const posts = await page.evaluate(async () => {
-          let posts = document.querySelectorAll('div.v1Nh3 > a');
+          let posts = document.querySelectorAll('div.v1Nh3 > a');          
           return [].map.call(posts, a => a.href)
         })
+        console.log(posts.length);
+        if(posts.length == 0) break;
         const textPost = [];
+        let p = [];
         for(let post of posts) {
-          const newpage = await browser.newPage();
-          newpage.on('error', () => {
-            console.log(chalk.red('🚀 Page Reload'))
-            page.reload()
-          })
-          await newpage.goto(post + '/', {
-            timeout: 0
-          })
-          let singleurl = await self.getResource(newpage)
-          textPost.push(singleurl);
-          await newpage.close()
+          p.push(
+            new Promise(async(resolve) => {
+              const newpage = await browser.newPage();
+              newpage.on('error', () => {
+                console.log(chalk.red('🚀 Page Reload'))
+                page.reload()
+              })
+              await newpage.goto(post + '/', {
+                timeout: 0
+              })
+              let singleurl = await self.getResource(newpage)
+              textPost.push(singleurl);
+              await newpage.close()
+              resolve();
+            })
+          )
         }
+        await Promise.all(p);
         for (let post of textPost) {
           mediaText.push(post)
         }
-        // mediaText = await self.findDuplicateInArray(mediaText)
       } catch (e) {
         break
       }
